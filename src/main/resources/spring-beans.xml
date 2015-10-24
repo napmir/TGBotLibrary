@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+   
+    <context:annotation-config /> 
+    <context:component-scan base-package="com.tgbotlibrary" />
+	
+	<alias name="defaultQueue" alias="queue"/>
+	<bean id="defaultQueue" class="com.tgbotlibrary.interactions.InteractionQueueImpl" />
+      
+    <alias name="defaultInteractionDispatcher" alias="interactionDispatcher"/>
+    <bean id="defaultInteractionDispatcher" class="com.tgbotlibrary.interactions.InteractionDispatcherImpl"  >
+    	<property name="queue" ref="queue"/>
+    	<property name="threadPoolSize" value="10" />
+    	<property name="sleeptime" value="5" />
+    	<property name="taskListCapacity" value="1000" />
+    </bean> 
+    
+    
+    
+    <bean id="interactionFactory" class="com.tgbotlibrary.prove.HelloWorldInteractionFactory">
+    	<property name="interaction" ref="myInteraction" />
+    </bean>
+    
+    <alias name="defaultInteractionListener" alias="interactionListener"/>
+    <bean id="defaultInteractionListener" class="com.tgbotlibrary.interactions.InteractionListenerImpl">
+    	<property name="interactionFactory" ref="interactionFactory" />
+    	<property name="interactionDispatcher" ref="interactionDispatcher" />
+    	<property name="sleeptime" value="10" />
+    	<property name="offset" value="0" />
+    	<property name="limit" value="100" />
+    	<property name="timeout" value="0" />
+    </bean>
+       
+       
+     <bean id="myInteraction" class="com.tgbotlibrary.prove.HelloWorldInteraction">
+     	<property name="requestHandler" ref="requestHandler" />
+     </bean>
+     
+     <bean id="requestHandler" class="com.tgbotlibrary.services.RequestHandlerImpl" >
+     	<property name="httpService" ref="httpService" />
+     </bean>
+     
+     <bean id="httpService" class="com.tgbotlibrary.services.HttpServiceImpl" />
+</beans>
