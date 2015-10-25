@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tgbotlibrary.behavior.BehaviorAbstract;
-import com.tgbotlibrary.behavior.config.InsultaConfig;
 import com.tgbotlibrary.request.TGRequest;
 import com.tgbotlibrary.request.TGRequestCreator;
 import com.tgbotlibrary.response.Chat;
 import com.tgbotlibrary.response.Message;
 import com.tgbotlibrary.services.RequestHandler;
+import com.tgbotlibrary.utils.Config;
 
 @Component
 public class InsultaBehavior extends BehaviorAbstract {
@@ -22,8 +22,8 @@ public class InsultaBehavior extends BehaviorAbstract {
 	@Autowired
 	private TGRequestCreator tgRequestCreator;
 
-	@Autowired
-	private InsultaConfig insultaConfig;
+	private static final String CONTAINS_STRING = "insulta";
+	private final static String RANDOM_CONFIG="insulta";
 
 	@Override
 	public void tryme(Message message) {
@@ -32,7 +32,7 @@ public class InsultaBehavior extends BehaviorAbstract {
 		Integer chatId = chat.getId();
 		
 		
-		if (message.getText().toLowerCase().contains("insulta")) {
+		if (message.getText() != null && message.getText().toLowerCase().contains(CONTAINS_STRING)) {
 
 			int index = message.getText().toLowerCase().indexOf("insulta") + "insulta".length();
 			String tempMessage = message.getText().toLowerCase().substring(index).trim();
@@ -56,9 +56,9 @@ public class InsultaBehavior extends BehaviorAbstract {
 
 	private String manageInsulti(String name) {
 		Random randomGenerator = new Random();
-		int random = randomGenerator.nextInt(28);
+		int random = randomGenerator.nextInt(Config.getProperty(RANDOM_CONFIG, 25));
 		String property = "insulto." + random;
-		String result = insultaConfig.getProperty(property, "-");
+		String result = Config.getProperty(property, "-");
 		if (result.equals("-")) {
 			return null;
 		}

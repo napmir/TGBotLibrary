@@ -5,14 +5,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.tgbotlibrary.behavior.BehaviorAbstract;
-import com.tgbotlibrary.behavior.config.InsultaConfig;
-import com.tgbotlibrary.behavior.config.UserConfig;
 import com.tgbotlibrary.request.TGRequest;
 import com.tgbotlibrary.request.TGRequestCreator;
 import com.tgbotlibrary.response.Chat;
 import com.tgbotlibrary.response.Message;
 import com.tgbotlibrary.response.User;
 import com.tgbotlibrary.services.RequestHandler;
+import com.tgbotlibrary.utils.Config;
 
 @Component
 public class UserBehavior extends BehaviorAbstract {
@@ -23,8 +22,6 @@ public class UserBehavior extends BehaviorAbstract {
 	@Autowired
 	private TGRequestCreator tgRequestCreator;
 
-	@Autowired
-	private UserConfig userConfig;
 
 	@Override
 	public void tryme(Message message) {
@@ -59,7 +56,7 @@ public class UserBehavior extends BehaviorAbstract {
 
 			}
 
-			text = userConfig.getProperty(property, "-");
+			text = Config.getProperty(property, "-");
 			if (!text.equalsIgnoreCase("-")) {
 				TGRequest tgRequest = tgRequestCreator.sendMessage(chatId, text, disableWebPagePreview, replyToMessageId, parseMode,
 						replyKeyboard);

@@ -6,9 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Configuration
-@PropertySource("classpath:examplebot.properties")
-@Component
+//@Configuration
+//@PropertySource("classpath:examplebot.properties")
+//@PropertySource("file:config/user.properties")
+//@Component
 public class UserConfig {
 	
 	@Autowired
