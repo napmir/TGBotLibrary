@@ -15,7 +15,7 @@ import com.tgbotlibrary.services.RequestHandler;
 import com.tgbotlibrary.utils.Config;
 
 @Component
-public class YiogaPantsBehavior extends BehaviorAbstract implements FileBehavior {
+public class BoobsBehavior extends BehaviorAbstract implements FileBehavior {
 
 	@Autowired
 	private RequestHandler requestHandler;
@@ -23,15 +23,15 @@ public class YiogaPantsBehavior extends BehaviorAbstract implements FileBehavior
 	@Autowired
 	private TGRequestCreator tgRequestCreator;
 
-	private final static String PATH_CONFIG = "yogapants.path";
-	private static final String CONTAINS_STRING = "yogapants";
+	private final static String PATH_CONFIG = "boobs.path";
+	private static final String CONTAINS_STRING = "boobs";
 
 	@Override
 	public void tryme(Message message) {
 
 		if (message.getText().toLowerCase().contains(CONTAINS_STRING)) {
 			String _path = Config.getProperty(PATH_CONFIG,
-					"/Users/mirko/Documents/workspace/telegram/TGBotLibrary/src/main/resources/photos/selfie");
+					"/Users/mirko/Documents/workspace/telegram/TGBotLibrary/src/main/resources/photos/boobs");
 
 			String[] extensions = { "jpg" };
 
