@@ -24,7 +24,7 @@ public class YiogaPantsBehavior extends BehaviorAbstract implements FileBehavior
 	private TGRequestCreator tgRequestCreator;
 
 	private final static String PATH_CONFIG = "yogapants.path";
-	private static final String CONTAINS_STRING = "yogapant";
+	private static final String CONTAINS_STRING = "yogapants";
 
 	@Override
 	public void tryme(Message message) {
